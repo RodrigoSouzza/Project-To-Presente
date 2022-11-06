@@ -4,6 +4,7 @@ import { View } from 'react-native';
 import { Button, Input, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../styles/mainStyle';
+import { TextInputMask } from 'react-native-masked-text';
 
 export default function RegisterScreen({navigation}) {
 
@@ -17,12 +18,29 @@ export default function RegisterScreen({navigation}) {
     const [errorEmail, setErrorEmail] = useState(null)
     const[errorPassword, setErrorPassword] = useState(null)
 
+    let cpfField = null
+
     const validate = () => {
         let error = false
         const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
         if(!re.test(String(email).toLowerCase())){
             setErrorEmail("Preencha seu e-mail corretamente")
             error = true
+        }
+        if(!cpfField.isValid()){
+          setErrorCpf("Preencha seu CPF corretamente")
+          error = true
+        }
+        if(password == null){
+          setErrorPassword("Preencha sua senha corretamente")
+          error = true
+        }
+        if(name == null){
+          setErrorName("Preencha seu nome corretamente")
+          error = true
+        }
+        if(email == null){
+          setErrorEmail("Preencha seu email corretamente")
         }
         return !error        
     }
@@ -39,27 +57,30 @@ export default function RegisterScreen({navigation}) {
 
       <Input
       placeholder="Digite seu nome"
-      leftIcon={{type: 'font-awesome', name: 'user'}}
       onChangeText={value =>{
         setName(value)
         setErrorName(null)}}
       errorMessage={errorName}
-      />
+      />      
 
-      <Input
-      placeholder="Digite seu cpf"
-      leftIcon={{type: 'font-awesome', name: 'key'}}
-      onChangeText={value =>{
-        setCpf(value)
-        setErrorCpf(null)}}
-      keyboardType= "number-pad"
-      returnKeyType="done"
-      errorMessage={errorCpf}
-      />
+      <View style={styles.containerMask}>
+      <TextInputMask
+        placeholder='CPF'
+        type={'cpf'}
+        value={cpf}
+        onChangeText={value =>{
+          setCpf(value)
+          setErrorCpf(null)}}
+        keyboardType= "number-pad"
+        returnKeyType="done"
+        style={styles.maskedInput}
+        ref={(ref) => cpfField = ref}
+        />        
+      </View>
+      <Text style={styles.errorMessage}>{errorCpf}</Text>
 
       <Input
       placeholder="Digite seu email"
-      leftIcon={{type: 'font-awesome', name: 'envelope'}}
       onChangeText={value =>{
         setEmail(value)
         setErrorEmail(null)}}
@@ -69,7 +90,6 @@ export default function RegisterScreen({navigation}) {
 
       <Input
       placeholder="Digite sua senha"
-      leftIcon={{type: 'font-awesome', name: 'lock'}}
       onChangeText={value =>{
         setPassword(value)
         setErrorPassword(null)}}
