@@ -10,10 +10,27 @@ export default function RegisterScreen({navigation}) {
     const [name, setName] = useState(null)
     const [cpf, setCpf] = useState(null)
     const [email, setEmail] = useState(null)
-    const[password, setPassword] = useState(null)  
+    const[password, setPassword] = useState(null)
+    
+    const [errorName, setErrorName] = useState(null)
+    const [errorCpf, setErrorCpf] = useState(null)
+    const [errorEmail, setErrorEmail] = useState(null)
+    const[errorPassword, setErrorPassword] = useState(null)
+
+    const validate = () => {
+        let error = false
+        const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+        if(!re.test(String(email).toLowerCase())){
+            setErrorEmail("Preencha seu e-mail corretamente")
+            error = true
+        }
+        return !error        
+    }
 
     const save = () => {
-        console.log("Salvou")
+        if(validate()){
+            console.log("Salvou")
+        }
     }
 
   return (
@@ -23,30 +40,42 @@ export default function RegisterScreen({navigation}) {
       <Input
       placeholder="Digite seu nome"
       leftIcon={{type: 'font-awesome', name: 'user'}}
-      onChangeText={value => setName(value)}
+      onChangeText={value =>{
+        setName(value)
+        setErrorName(null)}}
+      errorMessage={errorName}
       />
 
       <Input
       placeholder="Digite seu cpf"
       leftIcon={{type: 'font-awesome', name: 'key'}}
-      onChangeText={value => setCpf(value)}
+      onChangeText={value =>{
+        setCpf(value)
+        setErrorCpf(null)}}
       keyboardType= "number-pad"
       returnKeyType="done"
+      errorMessage={errorCpf}
       />
 
       <Input
       placeholder="Digite seu email"
       leftIcon={{type: 'font-awesome', name: 'envelope'}}
-      onChangeText={value => setEmail(value)}
+      onChangeText={value =>{
+        setEmail(value)
+        setErrorEmail(null)}}
       keyboardType="email-address"
+      errorMessage={errorEmail}
       />
 
       <Input
       placeholder="Digite sua senha"
       leftIcon={{type: 'font-awesome', name: 'lock'}}
-      onChangeText={value => setPassword(value)}
+      onChangeText={value =>{
+        setPassword(value)
+        setErrorPassword(null)}}
       secureTextEntry={true}
       returnKeyType="done"
+      errorMessage={errorPassword}
       />
 
       <Button 
