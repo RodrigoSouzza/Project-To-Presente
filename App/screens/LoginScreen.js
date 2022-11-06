@@ -15,23 +15,30 @@ export default function LoginScreen({navigation}) {
         index: 0,
         routes:[{name: "Main"}]
     })
-    }
+}
+
+const Register = () => {
+    navigation.navigate("Register")
+}
 
   return (
     <View style={styles.container}>
       <Text h3>Tô Presente</Text>
+
       <Input
-      placeholder="E-mail"
+      placeholder="Digite seu e-mail"
       leftIcon={{type: 'font-awesome', name: 'envelope'}}
       onChangeText={value => setEmail(value)}
       keyboardType="email-address"
       />
+
       <Input
-      placeholder="Sua senha"
+      placeholder="Digite sua senha"
       leftIcon={{type: 'font-awesome', name: 'lock'}}
       onChangeText={value => setPassword(value)}
       secureTextEntry={true}
       />
+
       <Button 
       icon={
         <Icon
@@ -42,7 +49,19 @@ export default function LoginScreen({navigation}) {
       }
       title="Entrar"
       onPress={() => login()}       
-      />      
+      /> 
+
+      <Button 
+      icon={
+        <Icon
+        name="user"
+        size={15}
+        color="white"
+        />
+      }
+      title="Cadastrar"
+      onPress={() => Register()}       
+      />     
     </View>
   );
 }
