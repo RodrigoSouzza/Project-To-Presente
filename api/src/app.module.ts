@@ -7,7 +7,7 @@ import { UserModule } from './user/user.module';
   imports: [
     UserModule
   ],
-  
+   
   controllers: [AppController],
   providers: [AppService],
 })

@@ -5,6 +5,7 @@ import { Button, Input, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../styles/mainStyle';
 import { TextInputMask } from 'react-native-masked-text';
+import userService from '../services/userService';
 
 export default function RegisterScreen({navigation}) {
 
@@ -17,6 +18,7 @@ export default function RegisterScreen({navigation}) {
     const [errorCpf, setErrorCpf] = useState(null)
     const [errorEmail, setErrorEmail] = useState(null)
     const[errorPassword, setErrorPassword] = useState(null)
+    const[isLoading, setLoading] = useState(false)
 
     let cpfField = null
 
@@ -47,9 +49,27 @@ export default function RegisterScreen({navigation}) {
 
     const save = () => {
         if(validate()){
-            console.log("Salvou")
+            setLoading(true)
+
+            let data = {
+              name: name,
+              cpf: cpf,
+              email: email,
+              password: password
+            }
+
+            userService.register(data)
+            .then((response) => {
+              setLoading(false)
+              const title = (response.data.status) ? "Sucesso" : "Erro"
+              showDialog(title, response.data.message, "SUCESSO")
+            })
+            .catch((error) => {
+              setLoading(false)
+              showDialog("Erro", "Houve um erro inesperado", "ERRO")
+            })
         }
-    }
+    }    
 
   return (
     <View style={styles.container}>
@@ -97,7 +117,11 @@ export default function RegisterScreen({navigation}) {
       returnKeyType="done"
       errorMessage={errorPassword}
       />
-
+    
+    {isLoading && 
+    <Text>Carregando...</Text>
+    }
+    {!isLoading && 
       <Button 
       icon={
         <Icon
@@ -108,8 +132,8 @@ export default function RegisterScreen({navigation}) {
       }
       title="Salvar"
       onPress={() => save()}    
-      />
-
+      />   
+    }
     </View>
   );
 }
