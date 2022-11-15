@@ -107,7 +107,9 @@ Como IDE estou usando o "VSCODE" - <https://code.visualstudio.com/>
 Para desenvolvimento mobile estou utilizando o "reac-native"
 <https://reactnative.dev/>
 
-Para emulação em aparelhos celulares estou utilizando o "Expo"
+ conjunto de ferramentas e serviços construídos em torno de plataformas nativas e React 
+ Native que ajudam você a desenvolver, construir, implantar e iterar rapidamente em 
+ aplicativos iOS, Android e web a partir da mesma base de código JavaScript/TypeScript.
 <https://expo.dev/>
 
 ### Módulos, bibliotecas, e etc:
@@ -121,6 +123,15 @@ Para facilitar e ajudar no desenvolvimento de interfaces de usuário estou utili
 Para mascarar entradas de texto dos usuários, como cpf, numeros de telefone,
 estou utilizando o react-native-masked-text, e um pouco antigo mais ainda funciona muito bem
 <https://www.npmjs.com/package/react-native-masked-text>
+
+Para o desenvolvimento da API do projeto estou utilizando o NestJS framework construido em typescript para criação de Apis 
+e aplicações eficientes e escaláveis do lado do servidor <https://nestjs.com/>
+
+Para o banco de dados estou utilizando sql por meio do MYSQL <https://www.mysql.com/>
+
+Como ORM (Object relational mapping) estou utilizando o TypeORM <https://typeorm.io/>
+
+Para processar e facilitar as promessas e requisições HTTP estou utilizando o axios <https://axios-http.com/>
 
 
 
