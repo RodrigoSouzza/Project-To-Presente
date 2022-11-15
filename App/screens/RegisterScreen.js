@@ -1,11 +1,12 @@
 import 'react-native-gesture-handler';
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { Button, Input, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../styles/mainStyle';
 import { TextInputMask } from 'react-native-masked-text';
 import userService from '../services/userService';
+import { Button as PaperButton, Provider, Dialog, Paragraph, Portal } from 'react-native-paper';
 
 export default function RegisterScreen({navigation}) {
 
@@ -19,6 +20,12 @@ export default function RegisterScreen({navigation}) {
     const [errorEmail, setErrorEmail] = useState(null)
     const[errorPassword, setErrorPassword] = useState(null)
     const[isLoading, setLoading] = useState(false)
+
+    const [visible, setVisible] = useState(false)
+    const showDialog = () => setVisible(true)
+    const hideDialog = () => setVisible(false)
+    const [titleMessage, setTitleMessage] = useState(null)
+    const [message, setMessage] = useState(null)
 
     let cpfField = null
 
@@ -62,11 +69,16 @@ export default function RegisterScreen({navigation}) {
             .then((response) => {
               setLoading(false)
               const title = (response.data.status) ? "Sucesso" : "Erro"
-              showDialog(title, response.data.message, "SUCESSO")
+              setTitleMessage(title)
+              setMessage(response.data.message)
+              //Alert.alert(tittle, response.data.message)
+              showDialog()
             })
             .catch((error) => {
               setLoading(false)
-              showDialog("Erro", "Houve um erro inesperado", "ERRO")
+              setTitleMessage("Erro")
+              Alert.alert("Erro", "Houve um erro inesperado!")
+              
             })
         }
     }    
@@ -134,6 +146,19 @@ export default function RegisterScreen({navigation}) {
       onPress={() => save()}    
       />   
     }
+    <Provider>
+      <Portal>
+        <Dialog visible={visible} onDismiss={hideDialog}>
+        <Dialog.Title>{titleMessage}</Dialog.Title>
+        <Dialog.Content>
+          <Paragraph>{message}</Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <PaperButton onPress={hideDialog}>Done</PaperButton>
+            </Dialog.Actions>
+          </Dialog>
+      </Portal>
+    </Provider>
     </View>
   );
 }
