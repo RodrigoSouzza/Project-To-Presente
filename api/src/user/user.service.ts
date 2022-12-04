@@ -22,7 +22,7 @@ export class UserService {
       user.name = data.name
       user.cpf = data.cpf
       user.email = data.email
-      user.password = bcrypt.hashSync(data.password,8)
+      user.password = bcrypt.hashSync(data.password,8) 
 
       return this.userRepository.save(user)
       
@@ -38,5 +38,10 @@ export class UserService {
           message: "Houve um erro ao cadastrar o usuário!"
         }
       })      
+  }
+
+  async findOne(email: string): Promise<User | undefined> {
+    return this.userRepository.createQueryBuilder('user').where('email = :email', { email })
+    .getOne();
   }
 }
