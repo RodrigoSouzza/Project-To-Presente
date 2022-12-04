@@ -5,12 +5,14 @@ import { ResultDto } from 'src/dtoGeneric/result.dto';
 import { UserRegisterDto } from './dto/user.register.dto';
 import { User } from './user.entity';
 import { UserService } from './user.service';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
  
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService,
     private authService: AuthService) {}
 
+    @UseGuards(JwtAuthGuard)
     @Get()
     async list(): Promise<User[]>{
         return this.userService.listUsers()
