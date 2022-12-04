@@ -1,20 +1,38 @@
 import 'react-native-gesture-handler';
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, Alert } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 import { Button, Input, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../styles/mainStyle';
+import userService from '../services/userService';
+
 
 export default function LoginScreen({navigation}) {
 
   const [email, setEmail] = useState(null)
-  const[password, setPassword] = useState(null)
+  const [password, setPassword] = useState(null)
+  const [isLoading, setLoading] = useState(false)
 
   const login = () => {
-    navigation.reset({
+
+    let data = {
+      username:email,
+      password: password
+    }
+
+    userService.login(data)
+    .then((response) => {
+      setLoading(false)
+      navigation.reset({
         index: 0,
         routes:[{name: "Main"}]
+      })      
     })
+    .catch((error) => {
+      setLoading(false)
+      Alert.alert('Usuário não existe')            
+    })   
 }
 
 const Register = () => {
@@ -49,8 +67,13 @@ const Register = () => {
       }
       title="Entrar"
       onPress={() => login()}       
-      /> 
+      />
 
+      {isLoading &&
+        <ActivityIndicator />   
+      } 
+
+      {!isLoading &&
       <Button 
       icon={
         <Icon
@@ -61,7 +84,8 @@ const Register = () => {
       }
       title="Cadastrar"
       onPress={() => Register()}       
-      />     
+      />
+    }     
     </View>
   );
 }

@@ -2,6 +2,9 @@ import * as React from 'react';
 import { Text, View } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function Feed() {
   return (
@@ -11,10 +14,29 @@ function Feed() {
   );
 }
 
-function Profile() {
+const Logout = (navigation) => {
+  AsyncStorage.removeItem('TOKEN')
+  navigation.reset({
+    index:0,
+    routes: [{name:'Login'}]
+  })
+}
+
+function Profile({navigation}) {
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Text>Profile!</Text>
+      <Button 
+      icon={
+        <Icon
+        name="check"
+        size={15}
+        color="white"
+        />
+      }
+      title="Sair"
+      onPress={() => Logout(navigation)}       
+      />
     </View>
   );
 }
