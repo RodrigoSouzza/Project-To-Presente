@@ -3,6 +3,7 @@ import { UserService } from './../user/user.service';
 import { Injectable, Inject, HttpException, HttpStatus, forwardRef } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Token } from './token.entity';
+import { User } from 'src/user/user.entity';
 
 @Injectable()
 export class TokenService {
@@ -37,6 +38,16 @@ export class TokenService {
         return new HttpException({
           errorMessage: 'Token Inválido'
         }, HttpStatus.UNAUTHORIZED)
+      }
+    }
+
+    async getUserByToken(token: string): Promise<User>{
+      let objToken: Token = await this.tokenRepository.findOne({where:{hash: token}})
+      if(objToken){
+        let user = await this.userService.findOne(objToken.username)
+        return user
+      }else{
+        return null
       }
     }
 }

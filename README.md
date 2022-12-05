@@ -133,6 +133,8 @@ Como ORM (Object relational mapping) estou utilizando o TypeORM <https://typeorm
 
 Para processar e facilitar as promessas e requisições HTTP estou utilizando o axios <https://axios-http.com/>
 
+Para geração e criptografia de senhas e tokens estou utilizando JWT com nestJS <https://docs.nestjs.com/security/authentication>
+
 
 
 
