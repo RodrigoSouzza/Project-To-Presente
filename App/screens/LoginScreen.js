@@ -1,12 +1,10 @@
 import 'react-native-gesture-handler';
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { View, Alert } from 'react-native';
-import { ActivityIndicator } from 'react-native-paper';
 import { Button, Input, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../styles/mainStyle';
 import userService from '../services/userService';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function LoginScreen({navigation}) {
@@ -61,21 +59,14 @@ const Register = () => {
     navigation.navigate("Register")
 }
 
-useEffect(() => {
-  AsyncStorage.getItem('TOKEN').then((token)=> {
-    loginToken(token)
-  })
-}, [])
-
+//useEffect(() => {
+  //AsyncStorage.getItem('TOKEN').then((token)=> {
+    //loginToken(token)
+  //})
+//}, [])
+ 
   return (
-    <View style={styles.container}>
-
-      {
-        isLoading &&
-        <Text>Só um minutinho...</Text>
-      }
-      { !isLoadingToken &&
-        <>
+    <View style={styles.container}>      
         <Text h3>Tô Presente</Text>
         <Input
         placeholder="Digite seu e-mail"
@@ -102,11 +93,7 @@ useEffect(() => {
         title="Entrar"
         onPress={() => login()}       
         />
-        {isLoading &&
-          <ActivityIndicator />   
-        } 
-
-      {!isLoading &&
+        
         <Button 
         icon={
           <Icon
@@ -117,10 +104,7 @@ useEffect(() => {
         }
         title="Cadastrar"
         onPress={() => Register()}       
-        />
-      }   
-      </>
-    }        
+        />        
     </View>
   );
 }

@@ -1,91 +1,48 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Button } from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function Feed() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Feed!</Text>
-    </View>
-  );
-}
-
-const Logout = (navigation) => {
-  AsyncStorage.removeItem('TOKEN')
-  navigation.reset({
-    index:0,
-    routes: [{name:'Login'}]
-  })
-}
-
-function Profile({navigation}) {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Profile!</Text>
-      <Button 
-      icon={
-        <Icon
-        name="check"
-        size={15}
-        color="white"
-        />
-      }
-      title="Sair"
-      onPress={() => Logout(navigation)}       
-      />
-    </View>
-  );
-}
-
-function Notifications() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Notifications!</Text>
-    </View>
-  );
-}
+import ClassroomRegisterScreen from './ClassroomRegisterScreen';
+import ClassesScreen from './ClassesScreen';
+import RegisteredClassesScreen from './RegisteredClassesScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
 export default function MainScreen() {
   return (
     <Tab.Navigator
-      initialRouteName="Feed"
+      initialRouteName="Turmas"
       activeColor="#e91e63"
       labelStyle={{ fontSize: 12 }}
       style={{ backgroundColor: 'tomato' }}
     >
       <Tab.Screen
-        name="Feed"
-        component={Feed}
+        name="Turmas"
+        component={ClassesScreen}
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Turmas',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
+            <MaterialCommunityIcons name="google-classroom" color={color} size={24} />
           ),
         }}
       />
       <Tab.Screen
-        name="Notifications"
-        component={Notifications}
+        name="Aulas registradas"
+        component={RegisteredClassesScreen}
         options={{
-          tabBarLabel: 'Updates',
+          tabBarLabel: 'Aulas registradas',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="bell" color={color} size={26} />
+            <MaterialCommunityIcons name="calendar-check" color={color} size={26} />
           ),
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={Profile}
+        name="Registrar aula"
+        component={ClassroomRegisterScreen}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Registrar aula',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="account" color={color} size={26} />
+            <MaterialCommunityIcons name="clipboard-clock-outline" color={color} size={26} />
           ),
         }}
       />
