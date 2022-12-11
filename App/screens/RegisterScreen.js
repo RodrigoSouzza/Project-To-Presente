@@ -151,6 +151,7 @@ export default function RegisterScreen({navigation}) {
         />
       }
       title="Salvar"
+      style={styles.button}
       onPress={() => save()}    
       />   
     }

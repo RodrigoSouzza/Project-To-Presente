@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
+import styles from '../styles/mainStyle';
 
 export default function ClassesScreen() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={styles.container}>
         <Text>Turmas</Text>
       </View>
     );

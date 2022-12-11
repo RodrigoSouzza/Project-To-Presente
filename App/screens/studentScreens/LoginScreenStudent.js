@@ -3,11 +3,11 @@ import React, {  useState } from 'react';
 import { View, Alert } from 'react-native';
 import { Button, Input, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import styles from '../styles/mainStyle';
-import userService from '../services/userService';
+import styles from '../../styles/mainStyle';
+import userService from '../../services/userService';
 
 
-export default function LoginScreen({navigation}) {
+export default function LoginScreenStudent({navigation}) {
 
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
@@ -58,16 +58,10 @@ const loginToken = (token) => {
 const Register = () => {
     navigation.navigate("Register")
 }
-
-//useEffect(() => {
-  //AsyncStorage.getItem('TOKEN').then((token)=> {
-    //loginToken(token)
-  //})
-//}, [])
  
   return (
     <View style={styles.container}>      
-        <Text h3>Tô Presente</Text>
+        <Text h3>Óla, Aluno</Text>        
         <Input
         placeholder="Digite seu e-mail"
         leftIcon={{type: 'font-awesome', name: 'envelope'}}
@@ -91,6 +85,7 @@ const Register = () => {
           />
         }
         title="Entrar"
+        style={styles.button}
         onPress={() => login()}       
         />
         
@@ -103,6 +98,7 @@ const Register = () => {
           />
         }
         title="Cadastrar"
+        style={styles.button}
         onPress={() => Register()}       
         />        
     </View>

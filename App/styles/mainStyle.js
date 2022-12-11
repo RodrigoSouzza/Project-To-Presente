@@ -1,9 +1,18 @@
-import { StyleSheet, Text } from 'react-native';
-
+import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
-    container: {
+  button: {
+    width: '100%',
+    marginTop: 10,
+    backgroundColor: 'red'
+  },
+  logo: {
+    width: 200,
+    height: 100,
+    marginTop: -100
+  },  
+  container: {
       flex: 1,
-      backgroundColor:'#fff',
+      backgroundColor:'#6269E6',
       alignItems: 'center',
       justifyContent: 'center',
     },
